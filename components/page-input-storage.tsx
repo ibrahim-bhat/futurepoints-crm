@@ -6,8 +6,10 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
 interface StoredEntry {
+  id: string
   page: string
   value: string
+  createdAt: number
 }
 
 const STORAGE_KEY = 'futurepoints-page-inputs'
@@ -21,7 +23,21 @@ export function PageInputStorage() {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY)
       const parsed = raw ? JSON.parse(raw) : []
-      setEntries(Array.isArray(parsed) ? parsed : [])
+      if (!Array.isArray(parsed)) {
+        setEntries([])
+        return
+      }
+
+      const normalized = parsed
+        .filter((entry) => entry && typeof entry === 'object')
+        .map((entry) => ({
+          id: String(entry.id ?? `${entry.page ?? 'unknown'}-${entry.value ?? ''}-${Date.now()}-${Math.random()}`),
+          page: String(entry.page ?? ''),
+          value: String(entry.value ?? ''),
+          createdAt: Number(entry.createdAt ?? Date.now()),
+        }))
+
+      setEntries(normalized)
     } catch {
       setEntries([])
     }
@@ -37,7 +53,15 @@ export function PageInputStorage() {
     const trimmed = value.trim()
     if (!trimmed) return
 
-    const nextEntries = [...entries, { page: pathname, value: trimmed }]
+    const nextEntries = [
+      ...entries,
+      {
+        id: crypto.randomUUID(),
+        page: pathname,
+        value: trimmed,
+        createdAt: Date.now(),
+      },
+    ]
     setEntries(nextEntries)
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextEntries))
     setValue('')
@@ -58,9 +82,9 @@ export function PageInputStorage() {
 
       <div className="space-y-2">
         {pageEntries.length > 0 ? (
-          pageEntries.map((entry, index) => (
+          pageEntries.map((entry) => (
             <div
-              key={`${entry.page}-${entry.value}-${index}`}
+              key={entry.id}
               className="text-sm border border-border/60 rounded-md px-3 py-2"
             >
               {entry.value}
