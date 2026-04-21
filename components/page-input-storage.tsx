@@ -14,6 +14,14 @@ interface StoredEntry {
 
 const STORAGE_KEY = 'futurepoints-page-inputs'
 
+function createEntryId(fallbackPrefix = 'entry') {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+
+  return `${fallbackPrefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+}
+
 export function PageInputStorage() {
   const pathname = usePathname()
   const [value, setValue] = useState('')
@@ -30,12 +38,12 @@ export function PageInputStorage() {
 
       const normalized = parsed
         .filter((entry) => entry && typeof entry === 'object')
-        .map((entry) => {
+        .map((entry, index) => {
           const page = String(entry.page ?? '')
           const value = String(entry.value ?? '')
           const createdAt = Number(entry.createdAt ?? Date.now())
           return {
-            id: String(entry.id ?? `${page}-${value}-${createdAt}`),
+            id: String(entry.id ?? `${page}-${value}-${createdAt}-${index}`),
             page,
             value,
             createdAt,
@@ -61,7 +69,7 @@ export function PageInputStorage() {
     const nextEntries = [
       ...entries,
       {
-        id: crypto.randomUUID(),
+        id: createEntryId('page-input'),
         page: pathname,
         value: trimmed,
         createdAt: Date.now(),
