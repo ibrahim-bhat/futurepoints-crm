@@ -31,7 +31,7 @@ export function PageInputStorage() {
       const normalized = parsed
         .filter((entry) => entry && typeof entry === 'object')
         .map((entry) => ({
-          id: String(entry.id ?? `${entry.page ?? 'unknown'}-${entry.value ?? ''}-${Date.now()}-${Math.random()}`),
+          id: String(entry.id ?? crypto.randomUUID()),
           page: String(entry.page ?? ''),
           value: String(entry.value ?? ''),
           createdAt: Number(entry.createdAt ?? Date.now()),
