@@ -74,6 +74,11 @@ export function Sidebar() {
       icon: <Users className="w-5 h-5" />,
     },
     {
+      label: 'Vendors',
+      href: '/vendors',
+      icon: <Users className="w-5 h-5" />,
+    },
+    {
       label: 'Repairs',
       href: '/repairs',
       icon: <Wrench className="w-5 h-5" />,
