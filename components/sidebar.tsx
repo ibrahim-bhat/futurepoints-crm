@@ -17,7 +17,9 @@ import {
   X,
   Building2,
   BarChart3,
-  AlertCircle,
+  HandCoins,
+  BookText,
+  Printer,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -74,6 +76,11 @@ export function Sidebar() {
       icon: <Users className="w-5 h-5" />,
     },
     {
+      label: 'Vendors',
+      href: '/vendors',
+      icon: <HandCoins className="w-5 h-5" />,
+    },
+    {
       label: 'Repairs',
       href: '/repairs',
       icon: <Wrench className="w-5 h-5" />,
@@ -88,6 +95,16 @@ export function Sidebar() {
       label: 'Rentals',
       href: '/rentals',
       icon: <Truck className="w-5 h-5" />,
+    },
+    {
+      label: 'Ledger',
+      href: '/ledger',
+      icon: <BookText className="w-5 h-5" />,
+    },
+    {
+      label: 'Invoice Print',
+      href: '/invoice-print',
+      icon: <Printer className="w-5 h-5" />,
     },
     {
       label: 'Settings',

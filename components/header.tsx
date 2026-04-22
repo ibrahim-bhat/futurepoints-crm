@@ -1,7 +1,8 @@
 'use client'
 
-import { Bell, Settings, User, LogOut } from 'lucide-react'
+import { Bell, Settings, User, LogOut, Search, FlaskConical } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +14,21 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export function Header() {
   return (
-    <header className="sticky top-0 right-0 left-0 lg:left-64 z-40 bg-card border-b border-border h-16">
-      <div className="h-full px-6 flex items-center justify-between">
+    <header className="sticky top-0 right-0 left-0 lg:left-64 z-40 bg-card border-b border-border">
+      <div className="px-6 py-2 border-b border-border/70">
+        <div className="flex items-center gap-2 text-xs text-amber-500 font-medium">
+          <FlaskConical className="w-3.5 h-3.5" />
+          <span>Prototype only - values and workflows are for demo purposes.</span>
+        </div>
+      </div>
+      <div className="h-14 px-6 flex items-center justify-between gap-4">
         {/* Search area - can be expanded */}
-        <div className="hidden md:block flex-1">
-          <p className="text-sm text-muted-foreground">Service Management Dashboard</p>
+        <div className="hidden md:flex flex-1 items-center gap-3">
+          <div className="relative max-w-md w-full">
+            <Search className="w-4 h-4 text-muted-foreground absolute left-3 top-1/2 -translate-y-1/2" />
+            <Input placeholder="Type here..." className="pl-9" />
+          </div>
+          <p className="text-sm text-muted-foreground hidden xl:block">Service Management Dashboard</p>
         </div>
 
         {/* Right side actions */}
