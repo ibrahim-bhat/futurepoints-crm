@@ -4,6 +4,7 @@ import { Sidebar } from '@/components/sidebar'
 import { Header } from '@/components/header'
 import { StatCard } from '@/components/stat-card'
 import { SectionHeader } from '@/components/section-header'
+import { PageInputStorage } from '@/components/page-input-storage'
 import { DollarSign, Package, Wrench, Users, TrendingUp } from 'lucide-react'
 import {
   LineChart,
@@ -53,6 +54,8 @@ export default function Home() {
         <Header />
         <main className="flex-1 overflow-auto p-6">
           <div className="max-w-7xl mx-auto space-y-8">
+            <PageInputStorage />
+
             {/* Header */}
             <div>
               <h1 className="text-4xl font-bold text-foreground mb-2">Dashboard</h1>
